@@ -73,32 +73,35 @@ class _PostButtonsState extends State<PostButtons> {
                     )),
               ),
               Expanded(
+                flex: 2,
                 child: GestureDetector(
                     onTap: () {
                       showCommentsModal(context, widget.post);
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/chat_2.svg',
-                          height: 17.sp,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Text(
-                          widget.post.commentCount == 0
-                              ? 'Comment'
-                              : '${widget.post.commentCount} Comments'
-                                  .toString(), // Display the number of likes
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.sp, // Reduced font size
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/icons/chat_2.svg',
+                            height: 17.sp,
+                            color: Colors.black,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            widget.post.commentCount == 0
+                                ? 'Comment'
+                                : '${widget.post.commentCount} Comments'
+                                    .toString(), // Display the number of likes
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.sp, // Reduced font size
+                            ),
+                          ),
+                        ],
+                      ),
                     )),
               ),
               Expanded(
@@ -106,25 +109,27 @@ class _PostButtonsState extends State<PostButtons> {
                   onTap: () {
                     sharePost(widget.post);
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/share.svg',
-                        height: 13.sp,
-                        color: Colors.black,
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Text(
-                        'Share'.toString(), // Display the number of likes
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12.sp, // Reduced font size
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/icons/share.svg',
+                          height: 13.sp,
+                          color: Colors.black,
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          'Share'.toString(), // Display the number of likes
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12.sp, // Reduced font size
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
