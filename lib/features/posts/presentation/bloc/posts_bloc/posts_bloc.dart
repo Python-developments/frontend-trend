@@ -32,6 +32,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<DeletePostEvent>(_onDeletePostEvent);
     on<HidePostEvent>(_onHidePostEvent);
     on<ToggleLikeEvent>(_onToggleLikeEvent);
+    on<ToggleLocalReactionEvent>(_onToggleLocalReactionEvent);
     on<ToggleReactionEvent>(_onToggleReactionEvent);
     on<FetchSinglePostEvent>(_onFetchSinglePostEvent);
     on<UpdateCommentsCountForPostEvent>(_onUpdateCommentsCountForPostEvent);
@@ -169,7 +170,6 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
   FutureOr<void> _onToggleReactionEvent(
       ToggleReactionEvent event, Emitter<PostsState> emit) async {
-    log(state.posts.length.toString());
     List<PostModel> posts = state.posts;
     PostModel currentPost = event.post;
     String newReaction = event.reactionType;
@@ -378,6 +378,40 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
         ));
       },
     );*/
+  }
+
+  FutureOr<void> _onToggleLocalReactionEvent(
+      ToggleLocalReactionEvent event, Emitter<PostsState> emit) async {
+    List<PostModel> posts = event.posts;
+    PostModel currentPost = event.post;
+    String newReaction = event.reactionType;
+    final index = posts.indexWhere((p) => p.id == currentPost.id);
+
+    if (index == -1) {
+      return; // Post not found, nothing to update
+    }
+
+    // Get the current post
+    PostModel post = posts[index];
+    if (post.userReaction == null) {
+      post.userReaction = newReaction;
+      post.totalReactionsCount += 1;
+    } else {
+      post.userReaction = null;
+      post.totalReactionsCount -= 1;
+    }
+    // After modifying the post, update the posts list
+    posts[index] = post;
+
+    emit(PostsLoadedState(
+      posts: posts,
+      page: state.page,
+      canLoadMore: state.canLoadMore,
+      currentPost: currentPost,
+    ));
+
+    final postOrFailure =
+        await postsRepository.toggleReaction(event.post.id, event.reactionType);
   }
 
   FutureOr<void> _onToggleLikeEvent(

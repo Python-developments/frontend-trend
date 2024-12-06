@@ -77,6 +77,18 @@ class ToggleReactionEvent extends PostsEvent {
       {required this.post, required this.reactionType, required this.user});
 }
 
+class ToggleLocalReactionEvent extends PostsEvent {
+  final List<PostModel> posts;
+  final PostModel post;
+  final UserModel? user;
+  final String reactionType;
+  const ToggleLocalReactionEvent(
+      {required this.posts,
+      required this.post,
+      required this.reactionType,
+      required this.user});
+}
+
 class FetchSinglePostEvent extends PostsEvent {
   final int postId;
 

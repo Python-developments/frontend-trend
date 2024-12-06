@@ -108,8 +108,9 @@ class _UserImageAndUsernameAndMenuState
                       widget.post.content.split("&&&&****&&&&")[0],
                       style: TextStyle(fontWeight: FontWeight.w500),
                       trimMode: TrimMode.Line,
+                      delimiter: "xxx",
                       trimLines: 2,
-                      trimCollapsedText: 'Show more',
+                      trimCollapsedText: ' Show more',
                       trimExpandedText: 'Show less',
                       lessStyle: TextStyle(
                           fontSize: 12,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,11 +83,29 @@ class _PostMediaWidgetState extends State<PostMediaWidget>
     });
   }
 
+  double calculateHeighAndWidth() {
+    String content = widget.post.content;
+    List<String> parts = content.split("&&&&****&&&&");
+    String text = parts[0];
+    if (parts.length > 2) {
+      double height = double.parse(parts[1].toString());
+      double width = double.parse(parts[2].toString());
+      double screenWidth = Get.width;
+      double newHeight = height * screenWidth / width;
+      return newHeight;
+    } else if (parts.length > 1) {
+      double height = double.parse(parts[1].toString());
+      return height;
+    } else {
+      return 0;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    log(Get.width.toString());
     List<String> x = widget.post.content.split("&&&&****&&&&");
-    String doubleHeightString = x.length > 1 ? x[1] : "0";
-    double height = double.parse(doubleHeightString);
+    double height = calculateHeighAndWidth();
     return GestureDetector(
       onDoubleTap: () async {
         await _likeOrUnLikePost(context);

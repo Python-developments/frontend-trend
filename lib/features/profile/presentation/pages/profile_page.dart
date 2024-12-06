@@ -1,14 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:frontend_trend/config/locale/app_localizations.dart';
-import 'package:frontend_trend/config/routes/app_routes.dart';
-import 'package:frontend_trend/core/widgets/custom_cached_image.dart';
+
 import 'package:frontend_trend/features/profile/presentation/bloc/get_profile_following_bloc/get_profile_following_bloc.dart';
 import 'package:frontend_trend/features/profile/presentation/pages/sanad_profile.dart';
 import 'package:frontend_trend/features/profile/presentation/widgets/single_profile_button.dart';

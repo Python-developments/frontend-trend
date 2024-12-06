@@ -52,6 +52,7 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
   }
 */
   double imageHeight = 0;
+  double imageWidth = 0;
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
@@ -62,6 +63,7 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
       file = File(pickedFile.path);
       final img.Image image = img.decodeImage(await pickedFile.readAsBytes())!;
       imageHeight = image.height.toDouble();
+      imageWidth = image.width.toDouble();
       // isVlog = false;
 
       setState(() {});
@@ -83,8 +85,11 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
   void peformAddPost() async {
     // imageHeight
     String postDescription = _descriptionController.text.trim();
-    String postHeightWithDescription =
-        postDescription + "&&&&****&&&&" + imageHeight.toString();
+    String postHeightWithDescription = postDescription +
+        "&&&&****&&&&" +
+        imageHeight.toString() +
+        "&&&&****&&&&" +
+        imageWidth.toString();
     log(postHeightWithDescription);
     context.read<PostsBloc>().add(AddPostEvent(
         params: AddPostParams(
