@@ -128,7 +128,8 @@ class CustomTextFormField extends StatelessWidget {
       mouseCursor: mouseCursor,
       onTapOutside: onTapOutside,
       textAlign: textAlign,
-      cursorColor: Theme.of(context).primaryColor,
+      cursorColor: Colors.black,
+      cursorHeight: 18,
     );
   }
 }

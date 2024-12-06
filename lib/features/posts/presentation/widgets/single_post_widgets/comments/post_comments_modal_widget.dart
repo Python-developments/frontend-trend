@@ -224,6 +224,7 @@ class _PostCommentsModalWidgetState extends State<PostCommentsModalWidget> {
                           height: 40,
                           alignment: Alignment.center,
                           child: CustomTextFormField(
+                            showCursor: true,
                             isFilled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
@@ -354,5 +355,6 @@ void showCommentsModal(BuildContext context, PostModel post) {
         ),
       ),
       disableScroll: true,
-      height: MediaQuery.of(context).size.height * 0.75);
+      height:
+          MediaQuery.of(context).size.height - AppBar().preferredSize.height);
 }
