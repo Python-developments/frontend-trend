@@ -1,0 +1,145 @@
+name: frontend_trend
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 0.3.0+1
+
+environment:
+  sdk: ">=3.2.2 <4.0.0"
+dependencies:
+  animate_do: ^3.3.4
+  animations: ^2.0.11
+  cached_network_image: ^3.3.1
+  carousel_slider: ^5.0.0
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  dio: ^5.4.1
+  equatable: ^2.0.5
+  expandable_text: ^2.3.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: ^5.9.0
+  flutter_staggered_grid_view: ^0.7.0
+  flutter_svg: ^2.0.9
+  fluttertoast: ^8.2.4
+  gap: ^3.0.1
+  get_it: ^7.6.7
+  go_router: 12.1.3
+  google_nav_bar: ^5.0.6
+  image_picker: ^1.0.7
+  internet_connection_checker: ^1.0.0+1
+  intl: ^0.19.0
+  material_design_icons_flutter: ^7.0.7296
+  permission_handler: ^11.3.0
+  photo_view: ^0.15.0
+  pretty_dio_logger: ^1.3.1
+  progress_state_button: ^1.0.4
+  shared_preferences: ^2.2.2
+  shimmer: ^3.0.0
+  timeago: ^3.6.1
+  video_player: ^2.9.1
+  visibility_detector: ^0.4.0+2
+  widget_zoom: ^0.0.4
+  share_plus: ^9.0.0
+  path_provider: ^2.1.3
+  rxdart: ^0.27.7
+  camera: ^0.11.0+1
+  cached_video_player_plus: ^3.0.2
+  path: ^1.9.0
+  google_fonts: ^6.2.1
+  flutter_reaction_button:
+    git:
+      url: https://github.com/shadysamara/flutter-reaction-button.git
+      ref: master
+  reaction_askany: ^0.1.2
+  audioplayers: ^6.1.0
+  flutter_chat_ui: ^1.6.12
+  file_picker: ^8.0.7
+  open_filex: ^4.5.0
+  chat_bubbles: ^1.6.0
+  get: ^4.6.6
+  scroll_to_index: ^3.0.1
+  scrollable_positioned_list: ^0.3.8
+  indexed_list_view: ^4.0.0
+  zoom_pinch_overlay: ^1.4.3
+  pinch_zoom: ^2.0.0
+  insta_image_viewer: ^1.0.4
+  flutter_zoom_drawer: ^3.2.0
+  pinch_zoom_release_unzoom: ^1.0.3
+  readmore: ^3.0.0
+
+dev_dependencies:
+  # flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo_trend.png"
+  min_sdk_android: 21 
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/
+    - assets/
+    - assets/images/
+    - assets/icons/single_post/reactions/
+    - assets/icons/
+    - assets/icons/bottom_nav_bar/
+    - assets/icons/single_post/
+    - assets/icons/reactions/
+    - assets/icons/profile/
+    - assets/icons/profile/new/
+    - assets/lang/
+    - shorebird.yaml
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Inter-ExtraLight.ttf
+          weight: 200
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+          weight: 200
+
