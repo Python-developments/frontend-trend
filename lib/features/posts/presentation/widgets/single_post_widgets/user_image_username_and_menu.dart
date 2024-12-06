@@ -97,7 +97,7 @@ class _UserImageAndUsernameAndMenuState
               ),
             ],
           ),
-          widget.post.content.isEmpty
+          widget.post.content.split("&&&&****&&&&")[0].isEmpty
               ? SizedBox(
                   height: 3.sp,
                 )
