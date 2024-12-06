@@ -31,8 +31,12 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<ProfileModel> editUserProfile(ProfileFormData formData) async {
     Map<String, dynamic> body = {
       "bio": formData.bio,
+      "first_name": formData.fName,
+      "last_name": formData.lName,
+      "phone_number": formData.phone,
+      "location": formData.location,
     };
-    log("profile bio is $body");
+
     if (formData.backgroundImage != null &&
         formData.backgroundImage?.path != null) {
       body.addAll({
@@ -46,12 +50,20 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         "avatar": [await MultipartFile.fromFile(formData.avatar!.path)]
       });
     }
-
-    final response = await apiConsumer.patch(
-        EndPoints.editProfile(formData.profileId),
-        formDataIsEnabled: true,
-        body: body,
-        queryParameters: {});
+    log("profile bio is $body");
+    final response =
+        await apiConsumer.patch(EndPoints.editProfile(formData.profileId),
+            formDataIsEnabled: true,
+            body: body
+            // {
+            //   "bio": "gaza",
+            //   "first_name": "test fname",
+            //   "last_name": "test lname",
+            //   "phone_number": "test phone",
+            //   "location": "test location"
+            // }
+            ,
+            queryParameters: {});
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(response.data);
     } else {

@@ -46,7 +46,7 @@ import '../locale/app_localizations.dart';
 class Routes {
   static String initialPage = '/';
   static String notificationPage = '/notifications';
-  static String editBio = '/editBio';
+  // static String editBio = '/editBio';
 
   static String posts = '/posts';
 
@@ -104,7 +104,7 @@ final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: Routes.initialPage,
   routes: [
-    GoRoute(
+    /* GoRoute(
       path: "/editBio",
       pageBuilder: (context, state) => NoTransitionPage(
         child: MultiBlocProvider(
@@ -119,6 +119,7 @@ final router = GoRouter(
         ),
       ),
     ),
+    */
     GoRoute(
       path: Routes.initialPage,
       pageBuilder: (context, state) =>

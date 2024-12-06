@@ -37,26 +37,33 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _bioController = TextEditingController();
   String? avatarFileUrl;
   String? backgroundImageFileUrl;
   @override
   void initState() {
     super.initState();
-    _bioController.text = widget.profile.bio;
     changeProfileBio(widget.profile.bio);
+    changeProfilefName(widget.profile.fName);
+    changeProfilelName(widget.profile.lName);
+    changeProfilePhone(widget.profile.phone);
+    changeProfileLocation(widget.profile.location);
   }
 
   _editProfile() {
     context.read<ProfileBloc>().add(
           UpdateProfileInfoEv(
               formData: ProfileFormData(
-                  profileId: widget.profile.id,
-                  avatar: avatarFileUrl == null ? null : File(avatarFileUrl!),
-                  backgroundImage: backgroundImageFileUrl == null
-                      ? null
-                      : File(backgroundImageFileUrl!),
-                  bio: _bioController.text.trim()),
+                profileId: widget.profile.id,
+                avatar: avatarFileUrl == null ? null : File(avatarFileUrl!),
+                backgroundImage: backgroundImageFileUrl == null
+                    ? null
+                    : File(backgroundImageFileUrl!),
+                bio: widget.profile.bio,
+                fName: widget.profile.fName,
+                lName: widget.profile.lName,
+                location: widget.profile.location,
+                phone: widget.profile.phone,
+              ),
               context: context),
         );
   }
@@ -71,10 +78,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   String bio = "";
-
+  String fName = "";
+  String lName = "";
+  String phone = "";
+  String location = "";
+  bool updateProfile = false;
   changeProfileBio(String newBio) {
     bio = newBio;
+    widget.profile.bio = newBio;
+    updateProfile = true;
+    setState(() {});
+  }
 
+  changeProfilefName(String fName) {
+    this.fName = fName;
+    widget.profile.fName = fName;
+    updateProfile = true;
+    setState(() {});
+  }
+
+  changeProfilelName(String lName) {
+    this.lName = lName;
+    widget.profile.lName = lName;
+    updateProfile = true;
+    setState(() {});
+  }
+
+  changeProfilePhone(String phone) {
+    this.phone = phone;
+    widget.profile.phone = phone;
+    updateProfile = true;
+    setState(() {});
+  }
+
+  changeProfileLocation(String location) {
+    this.location = location;
+    widget.profile.location = location;
+    updateProfile = true;
     setState(() {});
   }
 
@@ -100,7 +140,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     InkWell(
                       onTap: () {
                         // changeProfileBio("newBio");
-                        Navigator.pop(context, bio != widget.profile.bio);
+                        Navigator.pop(context, updateProfile);
                       },
                       child: Row(
                         children: [
@@ -227,12 +267,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   height: 1,
                                   thickness: 0.2,
                                 )),
-                            ProfileWidget(
-                              icon: "assets/icons/profile/new/user2.svg",
-                              title: "First Name",
-                              value: widget.profile.fName.isEmpty
-                                  ? "-"
-                                  : widget.profile.fName,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<CurrentUserCubit>()),
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<ProfileBloc>())
+                                    ],
+                                    child: EditBio(
+                                      profileValues: ProfileValues(
+                                          fname: fName,
+                                          lname: lName,
+                                          phone: phone,
+                                          location: location,
+                                          bio: bio),
+                                      charsCount: 10,
+                                      lineCount: 1,
+                                      title: "First Name",
+                                      profile: state.profile!,
+                                      changedBio: changeProfilefName,
+                                      value: fName,
+                                    )));
+                              },
+                              child: ProfileWidget(
+                                icon: "assets/icons/profile/new/user2.svg",
+                                title: "First Name",
+                                value: fName.isEmpty ? "-" : fName,
+                              ),
                             ),
                             SizedBox(
                                 width: 250,
@@ -240,12 +305,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   height: 1,
                                   thickness: 0.2,
                                 )),
-                            ProfileWidget(
-                              icon: "assets/icons/profile/new/user2.svg",
-                              title: "Last Name",
-                              value: widget.profile.lName.isEmpty
-                                  ? "-"
-                                  : widget.profile.lName,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<CurrentUserCubit>()),
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<ProfileBloc>())
+                                    ],
+                                    child: EditBio(
+                                      profileValues: ProfileValues(
+                                          fname: fName,
+                                          lname: lName,
+                                          phone: phone,
+                                          location: location,
+                                          bio: bio),
+                                      value: lName,
+                                      charsCount: 10,
+                                      lineCount: 1,
+                                      title: "Last Name",
+                                      profile: state.profile!,
+                                      changedBio: changeProfilelName,
+                                    )));
+                              },
+                              child: ProfileWidget(
+                                icon: "assets/icons/profile/new/user2.svg",
+                                title: "Last Name",
+                                value: lName.isEmpty ? "-" : lName,
+                              ),
                             ),
                             SizedBox(
                                 width: 250,
@@ -265,6 +355,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               sl<ProfileBloc>())
                                     ],
                                     child: EditBio(
+                                      profileValues: ProfileValues(
+                                          fname: fName,
+                                          lname: lName,
+                                          phone: phone,
+                                          location: location,
+                                          bio: bio),
+                                      value: bio,
+                                      charsCount: 80,
+                                      lineCount: 5,
+                                      title: "Bio",
                                       profile: state.profile!,
                                       changedBio: changeProfileBio,
                                     )));
@@ -283,12 +383,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   height: 1,
                                   thickness: 0.2,
                                 )),
-                            ProfileWidget(
-                              icon: "assets/icons/profile/new/user2.svg",
-                              title: "Phone",
-                              value: widget.profile.phone.isEmpty
-                                  ? '-'
-                                  : widget.profile.phone,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<CurrentUserCubit>()),
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<ProfileBloc>())
+                                    ],
+                                    child: EditBio(
+                                      profileValues: ProfileValues(
+                                          fname: fName,
+                                          lname: lName,
+                                          phone: phone,
+                                          location: location,
+                                          bio: bio),
+                                      value: phone,
+                                      charsCount: 13,
+                                      lineCount: 1,
+                                      title: "Phone",
+                                      profile: state.profile!,
+                                      changedBio: changeProfilePhone,
+                                    )));
+                              },
+                              child: ProfileWidget(
+                                icon: "assets/icons/profile/new/user2.svg",
+                                title: "Phone",
+                                value: phone.isEmpty ? '-' : phone,
+                              ),
                             ),
                             SizedBox(
                                 width: 250,
@@ -296,12 +421,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   height: 1,
                                   thickness: 0.2,
                                 )),
-                            ProfileWidget(
-                              icon: "assets/icons/profile/new/user2.svg",
-                              title: "Location",
-                              value: widget.profile.location.isEmpty
-                                  ? '-'
-                                  : widget.profile.location,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<CurrentUserCubit>()),
+                                      BlocProvider(
+                                          create: (context) =>
+                                              sl<ProfileBloc>())
+                                    ],
+                                    child: EditBio(
+                                      profileValues: ProfileValues(
+                                          fname: fName,
+                                          lname: lName,
+                                          phone: phone,
+                                          location: location,
+                                          bio: bio),
+                                      value: location,
+                                      charsCount: 40,
+                                      lineCount: 1,
+                                      title: "Location",
+                                      profile: state.profile!,
+                                      changedBio: changeProfileLocation,
+                                    )));
+                              },
+                              child: ProfileWidget(
+                                icon: "assets/icons/profile/new/user2.svg",
+                                title: "Location",
+                                value: location.isEmpty ? '-' : location,
+                              ),
                             ),
                             SizedBox(
                                 width: 250,

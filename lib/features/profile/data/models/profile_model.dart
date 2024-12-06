@@ -12,13 +12,13 @@ class ProfileModel {
   final int followersCount;
   final int reactionCount;
   final String username;
-  final String fName;
-  final String lName;
-  final String location;
-  final String phone;
+  String fName;
+  String lName;
+  String location;
+  String phone;
   final String avatar;
   final String backgroundImage;
-  final String bio;
+  String bio;
   final String mail;
   final bool isFollowing;
   final PagedList<PostModel> posts;
@@ -67,12 +67,12 @@ class ProfileModel {
       lName: jsonData.containsKey('last_name') && jsonData['last_name'] != null
           ? jsonData['last_name']
           : '',
-      location: jsonData.containsKey('"locatio') && jsonData['"locatio'] != null
-          ? jsonData['"locatio']
+      location: jsonData.containsKey('location') && jsonData['location'] != null
+          ? jsonData['location']
           : '',
-      phone: jsonData.containsKey('"phone_numbe') &&
-              jsonData['"phone_numbe'] != null
-          ? jsonData['"phone_numbe']
+      phone: jsonData.containsKey('phone_number') &&
+              jsonData['phone_number'] != null
+          ? jsonData['phone_number']
           : '',
       mail: jsonData.containsKey('email') && jsonData['email'] != null
           ? jsonData['email']

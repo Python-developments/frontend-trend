@@ -102,7 +102,7 @@ class _SanadProfileState extends State<SanadProfile> {
                   ),
                   SizedBox(height: 10.h),
                   Text(
-                    'Scout Organizations',
+                    '${state.profile?.fName} ${state.profile?.lName}',
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold,

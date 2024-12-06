@@ -7,10 +7,38 @@ import 'package:frontend_trend/features/profile/data/models/profile_form_data.da
 import 'package:frontend_trend/features/profile/data/models/profile_model.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
+class ProfileValues {
+  final String fname;
+  final String lname;
+  final String phone;
+  final String location;
+  final String bio;
+
+  ProfileValues(
+      {required this.fname,
+      required this.lname,
+      required this.phone,
+      required this.location,
+      required this.bio});
+}
+
 class EditBio extends StatefulWidget {
   final ProfileModel profile;
   final Function changedBio;
-  const EditBio({required this.profile, required this.changedBio});
+  final int lineCount;
+  final int charsCount;
+  final String title;
+  final String value;
+  final ProfileValues profileValues;
+  const EditBio({
+    required this.profile,
+    required this.changedBio,
+    required this.lineCount,
+    required this.charsCount,
+    required this.title,
+    required this.value,
+    required this.profileValues,
+  });
   @override
   State<EditBio> createState() => _EditBioState();
 }
@@ -20,7 +48,8 @@ class _EditBioState extends State<EditBio> {
   @override
   void initState() {
     super.initState();
-    _bioController.text = widget.profile.bio;
+
+    _bioController.text = widget.value;
   }
 
   _editProfile() {
@@ -30,7 +59,21 @@ class _EditBioState extends State<EditBio> {
                   profileId: widget.profile.id,
                   avatar: null,
                   backgroundImage: null,
-                  bio: _bioController.text.trim()),
+                  bio: widget.title.toLowerCase() == "bio"
+                      ? _bioController.text.trim()
+                      : widget.profileValues.bio,
+                  lName: widget.title.toLowerCase() == "last name"
+                      ? _bioController.text.trim()
+                      : widget.profileValues.lname,
+                  fName: widget.title.toLowerCase() == "first name"
+                      ? _bioController.text.trim()
+                      : widget.profileValues.fname,
+                  location: widget.title.toLowerCase() == "location"
+                      ? _bioController.text.trim()
+                      : widget.profileValues.location,
+                  phone: widget.title.toLowerCase() == "phone"
+                      ? _bioController.text.trim()
+                      : widget.profileValues.phone),
               context: context),
         );
     widget.changedBio(_bioController.text.trim());
@@ -70,7 +113,8 @@ class _EditBioState extends State<EditBio> {
                   ),
                 ),
                 Text(
-                  "Bio",
+                  widget.title,
+                  textAlign: TextAlign.center,
                   style:
                       TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
                 ),
@@ -104,13 +148,13 @@ class _EditBioState extends State<EditBio> {
                   },
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(
-                        80), // Limit to 80 characters
+                        widget.charsCount), // Limit to 80 characters
                     // FilteringTextInputFormatter.allow(
                     //     RegExp(r'[^\n]*')), // Prevent newlines beyond maxLines
                   ],
                   controller: _bioController,
-                  maxLines: 5,
-                  maxLength: 80,
+                  maxLines: widget.lineCount,
+                  maxLength: widget.charsCount,
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide:
