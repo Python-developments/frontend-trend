@@ -8,6 +8,8 @@ class PostModel {
   final String authorAvatar;
   final String image;
   final String content;
+  final double? height;
+  final double? width;
   final DateTime createdAt;
   final DateTime updatedAt;
   int likeCount;
@@ -30,6 +32,8 @@ class PostModel {
     required this.createdAt,
     required this.updatedAt,
     required this.likeCount,
+    required this.height,
+    required this.width,
     required this.commentCount,
     required this.likedByUser,
     required this.reactionList,
@@ -44,6 +48,7 @@ class PostModel {
     String avatar = json['avatar'] ?? '';
     image = image;
     avatar = avatar;
+    List<String> parts = json['content'].toString().split("&&&&****&&&&");
     return PostModel(
         id: json['id'] ?? 0,
         authorProfileId: json['profile_id'] ?? 0,
@@ -51,7 +56,9 @@ class PostModel {
         username: json['username'] ?? '',
         authorAvatar: avatar,
         image: image,
-        content: json['content'] ?? '',
+        content: parts[0],
+        height: parts.length > 1 ? double.parse(parts[1]) : 0,
+        width: parts.length > 2 ? double.parse(parts[2]) : 0,
         createdAt: DateTime.parse(json['created_at'] ?? ''),
         updatedAt: DateTime.parse(json['updated_at'] ?? ''),
         likeCount: json['like_counter'] ?? 0,
@@ -101,6 +108,8 @@ class PostModel {
       String? authorAvatar,
       String? image,
       String? content,
+      double? height,
+      double? width,
       DateTime? createdAt,
       DateTime? updatedAt,
       int? likeCount,
@@ -119,6 +128,8 @@ class PostModel {
         authorAvatar: authorAvatar ?? this.authorAvatar,
         image: image ?? this.image,
         content: content ?? this.content,
+        height: height ?? this.height,
+        width: width ?? this.width,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         likeCount: likeCount ?? this.likeCount,

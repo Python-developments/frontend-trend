@@ -170,6 +170,7 @@ class _ExplorePageState extends State<ExplorePage> {
                   return const NoSearchResultWidget();
                 }
                 return GridView.builder(
+                  controller: _scrollController,
                   padding:
                       EdgeInsets.zero, // Ensure no extra padding is applied
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

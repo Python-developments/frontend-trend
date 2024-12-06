@@ -69,7 +69,7 @@ class _PostUsernameAndDescriptionState
 
   @override
   Widget build(BuildContext context) {
-    return widget.post.content == ""
+    return widget.post.content.isEmpty
         ? SizedBox.shrink()
         : Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.sp),

@@ -97,7 +97,7 @@ class _UserImageAndUsernameAndMenuState
               ),
             ],
           ),
-          widget.post.content.split("&&&&****&&&&")[0].isEmpty
+          widget.post.content.isEmpty
               ? SizedBox(
                   height: 3.sp,
                 )
@@ -105,7 +105,7 @@ class _UserImageAndUsernameAndMenuState
                   children: [
                     SizedBox(height: 5.h),
                     ReadMoreText(
-                      widget.post.content.split("&&&&****&&&&")[0],
+                      widget.post.content,
                       style: TextStyle(fontWeight: FontWeight.w500),
                       trimMode: TrimMode.Line,
                       delimiter: "xxx",
