@@ -106,6 +106,9 @@ flutter:
     - shorebird.yaml
 
   fonts:
+    - family: sfarabic
+      fonts:
+        - asset: assets/fonts/sfarabic.ttf 
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Black.ttf

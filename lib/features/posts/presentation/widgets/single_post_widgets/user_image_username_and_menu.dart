@@ -35,8 +35,14 @@ class _UserImageAndUsernameAndMenuState
     }
   }
 
+  bool isArabic(String text) {
+    // A simple check to see if any character is within the Arabic Unicode block
+    return RegExp(r'[\u0600-\u06FF]').hasMatch(text);
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isArabicPost = isArabic(widget.post.content);
     // Format the timestamp into a human-readable string like "1 min ago", "5 hrs ago"
     String timeAgo = getTimeAgoShort(widget.post.createdAt);
     return Padding(
@@ -102,14 +108,20 @@ class _UserImageAndUsernameAndMenuState
                   height: 3.sp,
                 )
               : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(height: 5.h),
                     ReadMoreText(
                       widget.post.content,
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: isArabicPost ? "sfarabic" : "Inter",
+                      ),
                       trimMode: TrimMode.Line,
                       delimiter: "xxx",
                       trimLines: 2,
+                      textAlign:
+                          isArabicPost ? TextAlign.right : TextAlign.left,
                       trimCollapsedText: ' Show more',
                       trimExpandedText: 'Show less',
                       lessStyle: TextStyle(

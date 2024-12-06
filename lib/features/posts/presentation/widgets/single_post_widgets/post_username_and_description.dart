@@ -15,7 +15,7 @@ class PostUsernameAndDescription extends StatefulWidget {
 
 class _PostUsernameAndDescriptionState
     extends State<PostUsernameAndDescription> {
-  List<TextSpan> buildDescriptionText() {
+  List<TextSpan> buildDescriptionText(bool isArabic) {
     final description = widget.post.content;
     final RegExp exp = RegExp(r'\B#\w\w+');
     final Iterable<Match> matches = exp.allMatches(description);
@@ -34,6 +34,7 @@ class _PostUsernameAndDescriptionState
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w500,
+              fontFamily: isArabic ? "sfarabic" : "Inter",
               // height: 1.3.sp,
             )));
       }
@@ -58,7 +59,7 @@ class _PostUsernameAndDescriptionState
           style: TextStyle(
             fontSize: 14.sp,
             height: 1.5.sp,
-            fontFamily: "Inter",
+            fontFamily: isArabic ? "sfarabic" : "Inter",
             fontWeight: FontWeight.w400,
             color: Theme.of(context).textTheme.displayLarge!.color!,
           )));
@@ -67,8 +68,14 @@ class _PostUsernameAndDescriptionState
     return textSpans;
   }
 
+  bool isArabic(String text) {
+    // A simple check to see if any character is within the Arabic Unicode block
+    return RegExp(r'[\u0600-\u06FF]').hasMatch(text);
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isArabicPost = isArabic(widget.post.content);
     return widget.post.content.isEmpty
         ? SizedBox.shrink()
         : Padding(
@@ -78,10 +85,10 @@ class _PostUsernameAndDescriptionState
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      ...buildDescriptionText(),
+                      ...buildDescriptionText(isArabicPost),
                     ],
                   ),
-                  textAlign: TextAlign.left,
+                  textAlign: isArabicPost ? TextAlign.right : TextAlign.left,
                   textDirection: TextDirection.ltr,
                 ),
                 SizedBox(height: 15.sp),
