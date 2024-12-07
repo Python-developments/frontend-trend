@@ -122,7 +122,7 @@ class _PostMediaWidgetState extends State<PostMediaWidget>
                 placeholder: (context, x) {
                   return Center(
                       child: LogoLoader(
-                    size: 400.sp,
+                    size: 200.sp,
                   ));
                 },
                 errorWidget: (context, url, error) {

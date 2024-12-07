@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:indexed_list_view/indexed_list_view.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -43,7 +44,7 @@ class _PostsPageState extends State<PostsUserPage> {
   void initState() {
     super.initState();
     _paginationParams = PaginationParam(page: 1);
-    context.read<PostsBloc>().add(InitialocalReactionEvent(
+    context.read<ProfilePostsBloc>().add(InitialocalReactionEvent(
         posts: widget.posts,
         user: context.read<CurrentUserCubit>().state.user));
     _scrollController = ScrollController();
@@ -118,7 +119,7 @@ class _PostsPageState extends State<PostsUserPage> {
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        body: BlocConsumer<PostsBloc, PostsState>(
+        body: BlocConsumer<ProfilePostsBloc, PostsState>(
           listener: (context, state) {
             if (state is PostsNoInternetConnectionState) {
               ToastUtils(context).showNoInternetConnectionToast();

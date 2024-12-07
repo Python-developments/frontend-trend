@@ -45,6 +45,7 @@ class _PostButtonsState extends State<PostButtons> {
                     onTap: () {
                       if (widget.isProfilepost) {
                         context.read<PostsBloc>().add(ToggleLocalReactionEvent(
+                            context: context,
                             post: widget.post,
                             posts: widget.profilePosts,
                             reactionType: widget.post.userReaction == null

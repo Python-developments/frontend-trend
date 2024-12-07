@@ -82,11 +82,14 @@ class ToggleLocalReactionEvent extends PostsEvent {
   final PostModel post;
   final UserModel? user;
   final String reactionType;
-  const ToggleLocalReactionEvent(
-      {required this.posts,
-      required this.post,
-      required this.reactionType,
-      required this.user});
+  final BuildContext context;
+  const ToggleLocalReactionEvent({
+    required this.posts,
+    required this.post,
+    required this.reactionType,
+    required this.user,
+    required this.context,
+  });
 }
 
 class InitialocalReactionEvent extends PostsEvent {
