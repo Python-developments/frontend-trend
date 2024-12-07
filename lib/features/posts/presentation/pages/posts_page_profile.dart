@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:indexed_list_view/indexed_list_view.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:frontend_trend/core/widgets/loading_widget.dart';
@@ -42,9 +43,9 @@ class _PostsPageState extends State<PostsUserPage> {
   void initState() {
     super.initState();
     _paginationParams = PaginationParam(page: 1);
-    if (context.read<PostsBloc>().state.posts.isEmpty) {
-      _getAllPosts();
-    }
+    context.read<PostsBloc>().add(InitialocalReactionEvent(
+        posts: widget.posts,
+        user: context.read<CurrentUserCubit>().state.user));
     _scrollController = ScrollController();
 
     // Dynamically generate a unique GlobalKey for each post
@@ -126,8 +127,8 @@ class _PostsPageState extends State<PostsUserPage> {
             }
           },
           builder: (context, state) {
-            if (state is PostsLoadedState) {
-              List<PostModel> posts = widget.posts;
+            if (state is ProfilePostsLoadedState) {
+              List<PostModel> posts = state.posts;
 
               return SingleChildScrollView(
                 controller: _scrollController,
@@ -136,6 +137,8 @@ class _PostsPageState extends State<PostsUserPage> {
                   return Container(
                     key: _itemKeys[index], // Unique key for each item
                     child: SinglePostWidget(
+                      isprofilePost: true,
+                      profilePosts: widget.posts,
                       key: _itemKeys[index], // Unique key for each item
                       post: posts[index],
                       function: () {},

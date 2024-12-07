@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend_trend/core/widgets/logo_loader.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom_release_unzoom/pinch_zoom_release_unzoom.dart';
@@ -118,6 +119,12 @@ class _PostMediaWidgetState extends State<PostMediaWidget>
               alignment: Alignment.center,
               child: CachedNetworkImage(
                 imageUrl: widget.post.image,
+                placeholder: (context, x) {
+                  return Center(
+                      child: LogoLoader(
+                    size: 400.sp,
+                  ));
+                },
                 errorWidget: (context, url, error) {
                   return Container(
                     color: Colors.grey[200],

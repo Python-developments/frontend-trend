@@ -33,6 +33,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<HidePostEvent>(_onHidePostEvent);
     on<ToggleLikeEvent>(_onToggleLikeEvent);
     on<ToggleLocalReactionEvent>(_onToggleLocalReactionEvent);
+    on<InitialocalReactionEvent>(_onInitialLocalReactionEvent);
     on<ToggleReactionEvent>(_onToggleReactionEvent);
     on<FetchSinglePostEvent>(_onFetchSinglePostEvent);
     on<UpdateCommentsCountForPostEvent>(_onUpdateCommentsCountForPostEvent);
@@ -380,19 +381,32 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     );*/
   }
 
+  FutureOr<void> _onInitialLocalReactionEvent(
+      InitialocalReactionEvent event, Emitter<PostsState> emit) async {
+    emit(ProfilePostsLoadedState(
+      posts: event.posts,
+      page: state.page,
+      canLoadMore: state.canLoadMore,
+      currentPost: event.posts[0],
+    ));
+  }
+
   FutureOr<void> _onToggleLocalReactionEvent(
       ToggleLocalReactionEvent event, Emitter<PostsState> emit) async {
     List<PostModel> posts = event.posts;
     PostModel currentPost = event.post;
     String newReaction = event.reactionType;
     final index = posts.indexWhere((p) => p.id == currentPost.id);
+    log(index.toString());
 
     if (index == -1) {
       return; // Post not found, nothing to update
     }
 
     // Get the current post
+
     PostModel post = posts[index];
+    log(post.userReaction?.toString() ?? 'null');
     if (post.userReaction == null) {
       post.userReaction = newReaction;
       post.totalReactionsCount += 1;
@@ -400,18 +414,25 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       post.userReaction = null;
       post.totalReactionsCount -= 1;
     }
-    // After modifying the post, update the posts list
+    log(post.userReaction?.toString() ?? 'null');
     posts[index] = post;
-
-    emit(PostsLoadedState(
+    emit(ProfilePostsLoadedState(
       posts: posts,
       page: state.page,
       canLoadMore: state.canLoadMore,
       currentPost: currentPost,
     ));
 
-    final postOrFailure =
-        await postsRepository.toggleReaction(event.post.id, event.reactionType);
+    add(ToggleReactionEvent(
+        post: post, reactionType: event.reactionType, user: event.user));
+
+    /*
+    // After modifying the post, update the posts list
+    
+
+    
+
+     */
   }
 
   FutureOr<void> _onToggleLikeEvent(

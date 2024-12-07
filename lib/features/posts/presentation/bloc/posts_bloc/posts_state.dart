@@ -79,6 +79,14 @@ final class PostsLoadedState extends PostsState {
       required super.currentPost});
 }
 
+final class ProfilePostsLoadedState extends PostsState {
+  const ProfilePostsLoadedState(
+      {required super.posts,
+      required super.page,
+      required super.canLoadMore,
+      required super.currentPost});
+}
+
 final class PostsErrorState extends PostsState {
   final String message;
 

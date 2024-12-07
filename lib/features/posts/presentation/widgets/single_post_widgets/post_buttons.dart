@@ -12,7 +12,14 @@ import 'comments/post_comments_modal_widget.dart';
 
 class PostButtons extends StatefulWidget {
   final PostModel post;
-  const PostButtons({Key? key, required this.post}) : super(key: key);
+  final bool isProfilepost;
+  final List<PostModel> profilePosts;
+  const PostButtons(
+      {Key? key,
+      required this.post,
+      required this.isProfilepost,
+      required this.profilePosts})
+      : super(key: key);
 
   @override
   State<PostButtons> createState() => _PostButtonsState();
@@ -36,12 +43,22 @@ class _PostButtonsState extends State<PostButtons> {
               Expanded(
                 child: GestureDetector(
                     onTap: () {
-                      context.read<PostsBloc>().add(ToggleReactionEvent(
-                          post: widget.post,
-                          reactionType: widget.post.userReaction == null
-                              ? "like"
-                              : "remove",
-                          user: context.read<CurrentUserCubit>().state.user));
+                      if (widget.isProfilepost) {
+                        context.read<PostsBloc>().add(ToggleLocalReactionEvent(
+                            post: widget.post,
+                            posts: widget.profilePosts,
+                            reactionType: widget.post.userReaction == null
+                                ? "like"
+                                : "remove",
+                            user: context.read<CurrentUserCubit>().state.user));
+                      } else {
+                        context.read<PostsBloc>().add(ToggleReactionEvent(
+                            post: widget.post,
+                            reactionType: widget.post.userReaction == null
+                                ? "like"
+                                : "remove",
+                            user: context.read<CurrentUserCubit>().state.user));
+                      }
                     },
                     child: Row(
                       children: [

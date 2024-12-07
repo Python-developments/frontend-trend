@@ -8,7 +8,14 @@ import 'post_buttons.dart';
 class SinglePostWidget extends StatefulWidget {
   final PostModel post;
   final Function function;
-  const SinglePostWidget({Key? key, required this.post, required this.function})
+  final bool isprofilePost;
+  final List<PostModel> profilePosts;
+  const SinglePostWidget(
+      {Key? key,
+      required this.post,
+      required this.function,
+      this.isprofilePost = false,
+      this.profilePosts = const []})
       : super(key: key);
 
   @override
@@ -39,7 +46,11 @@ class _SinglePostWidgetState extends State<SinglePostWidget>
         SizedBox(
           height: 10.sp,
         ),
-        PostButtons(post: widget.post),
+        PostButtons(
+          profilePosts: widget.profilePosts,
+          post: widget.post,
+          isProfilepost: widget.isprofilePost,
+        ),
         Divider(
           color: Color(0xffededed),
         ),
