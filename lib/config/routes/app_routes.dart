@@ -5,6 +5,7 @@ import 'package:frontend_trend/features/chat/list_users.dart';
 import 'package:frontend_trend/features/new_post/new_post.dart';
 import 'package:frontend_trend/features/notifications/presentation/bloc/not_bloc/not_bloc.dart';
 import 'package:frontend_trend/features/notifications/presentation/pages/notification_page.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
 import 'package:frontend_trend/features/posts/presentation/pages/posts_page_profile.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/block_user_cubit/block_user_cubit.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
@@ -167,10 +168,13 @@ final router = GoRouter(
         GoRoute(
           path: '/userposts',
           pageBuilder: (context, state) => NoTransitionPage(
-            child: PostsUserPage(
-              index: (state.extra as Map)["index"],
-              posts: (state.extra as Map)["posts"],
-              userId: (state.extra as Map)["userId"],
+            child: BlocProvider(
+              create: (context) => sl<ProfilePostsBloc>(),
+              child: PostsUserPage(
+                index: (state.extra as Map)["index"],
+                posts: (state.extra as Map)["posts"],
+                userId: (state.extra as Map)["userId"],
+              ),
             ),
           ),
           routes: [

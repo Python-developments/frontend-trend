@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +56,7 @@ void _initProfile() {
 
   sl.registerFactory(() => CurrentUserCubit(sl(), sl()));
   sl.registerFactory(() => BlockUserCubit(profileRepository: sl()));
+  sl.registerFactory(() => ProfilePostsBloc(postsRepository: sl()));
   sl.registerFactory(() => ProfileBloc(
         profileRepository: sl(),
       ));

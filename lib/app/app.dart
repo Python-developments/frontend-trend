@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/posts_bloc.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:get/get.dart';
 import '../config/locale/app_localizations.dart';
@@ -23,6 +24,7 @@ class TrendApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<ThemeCubit>()),
         BlocProvider(create: (context) => di.sl<PostsBloc>()),
         BlocProvider(create: (context) => di.sl<CurrentUserCubit>()),
+        BlocProvider(create: (context) => di.sl<ProfilePostsBloc>()),
       ],
       child: ScreenUtilInit(
           designSize: const Size(360, 690),

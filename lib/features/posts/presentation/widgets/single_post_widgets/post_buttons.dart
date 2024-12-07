@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/posts_bloc.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
 import 'package:frontend_trend/features/posts/presentation/bloc/utils/share_post.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:get/get.dart';
@@ -44,14 +45,18 @@ class _PostButtonsState extends State<PostButtons> {
                 child: GestureDetector(
                     onTap: () {
                       if (widget.isProfilepost) {
-                        context.read<PostsBloc>().add(ToggleLocalReactionEvent(
-                            context: context,
-                            post: widget.post,
-                            posts: widget.profilePosts,
-                            reactionType: widget.post.userReaction == null
-                                ? "like"
-                                : "remove",
-                            user: context.read<CurrentUserCubit>().state.user));
+                        context.read<ProfilePostsBloc>().add(
+                            ToggleLocalReactionEvent(
+                                context: context,
+                                post: widget.post,
+                                posts: widget.profilePosts,
+                                reactionType: widget.post.userReaction == null
+                                    ? "like"
+                                    : "remove",
+                                user: context
+                                    .read<CurrentUserCubit>()
+                                    .state
+                                    .user));
                       } else {
                         context.read<PostsBloc>().add(ToggleReactionEvent(
                             post: widget.post,

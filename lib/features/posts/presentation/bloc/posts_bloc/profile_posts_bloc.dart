@@ -10,7 +10,8 @@ import 'package:path/path.dart';
 class ProfilePostsBloc extends Bloc<PostsEvent, PostsState> {
   final PostsRepository postsRepository;
   ProfilePostsBloc({required this.postsRepository})
-      : super(const ProfilePostsLoadedState()) {
+      : super(ProfilePostsLoadedState(
+            canLoadMore: false, posts: [], page: 1, currentPost: null)) {
     on<ToggleLocalReactionEvent>(_onToggleLocalReactionEvent);
     on<InitialocalReactionEvent>(_onInitialLocalReactionEvent);
   }
@@ -56,12 +57,7 @@ class ProfilePostsBloc extends Bloc<PostsEvent, PostsState> {
       currentPost: currentPost,
     ));
 
-  context.read<PostsBloc>().add(ToggleReactionEvent(
-                            post: widget.post,
-                            reactionType: widget.post.userReaction == null
-                                ? "like"
-                                : "remove",
-                            user: context.read<CurrentUserCubit>().state.user));
-   
+    event.context.read<PostsBloc>().add(ToggleReactionEvent(
+        post: event.post, reactionType: event.reactionType, user: event.user));
   }
 }

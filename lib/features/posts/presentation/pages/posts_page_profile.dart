@@ -47,13 +47,13 @@ class _PostsPageState extends State<PostsUserPage> {
     context.read<ProfilePostsBloc>().add(InitialocalReactionEvent(
         posts: widget.posts,
         user: context.read<CurrentUserCubit>().state.user));
+
     _scrollController = ScrollController();
 
     // Dynamically generate a unique GlobalKey for each post
     _itemKeys = List.generate(widget.posts.length, (_) => GlobalKey());
 
     // Ensure scrolling happens after layout
-    _scrollToInitialIndex();
   }
 
   void _getAllPosts() {
@@ -125,6 +125,8 @@ class _PostsPageState extends State<PostsUserPage> {
               ToastUtils(context).showNoInternetConnectionToast();
             } else if (state is PostsErrorState) {
               ToastUtils(context).showCustomToast(message: state.message);
+            } else if (state is ProfilePostsLoadedState) {
+              _scrollToInitialIndex();
             }
           },
           builder: (context, state) {

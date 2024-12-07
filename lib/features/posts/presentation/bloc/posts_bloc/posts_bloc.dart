@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:frontend_trend/features/authentication/data/models/user_model.dart';
 import '../../../data/repository/posts_repository.dart';

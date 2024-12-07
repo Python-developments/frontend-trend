@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/posts_bloc.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
+import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:frontend_trend/core/widgets/custom_cached_image.dart';
@@ -87,17 +90,11 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              log(widget.profile.posts.items.length.toString());
               context.push("/userposts", extra: {
                 "index": index,
                 "posts": widget.profile.posts.items,
                 "userId": widget.profile.id
               });
-              // context.go(PostsUserPage(
-              //   posts: widget.profile.posts.items,
-              //   index: index,
-              //   userId: widget.profile.id,
-              // ));
             },
             child: CachedNetworkImage(
               imageUrl: widget.profile.posts.items[index].image,
