@@ -69,6 +69,7 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
     final bloc = context.read<ProfileBloc>();
     if (bloc.state.canLoadMore && !bloc.isLoading) {
       bloc.add(FetchProfileInfoEv(
+          context: context,
           emitLoading: false,
           params: _paginationParams..page = _paginationParams.page + 1,
           profileId: widget.profile.id));

@@ -11,10 +11,12 @@ class FetchProfileInfoEv extends ProfileEvent {
   final PaginationParam params;
   final bool emitLoading;
   final int profileId;
+  final BuildContext context;
 
   const FetchProfileInfoEv({
     required this.profileId,
     required this.params,
+    required this.context,
     this.emitLoading = true,
   });
 

@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/posts_bloc.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:frontend_trend/core/utils/shared_pref.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
@@ -81,10 +83,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         );
         await Future.delayed(Duration(seconds: 1));
         add(FetchProfileInfoEv(
+          context: event.context,
           profileId: profile.id,
           params: PaginationParam(page: 1),
         ));
-
+        if (event.formData.avatar != null) {
+          event.context
+              .read<PostsBloc>()
+              .add(GetAllPostsEvent(params: PaginationParam(page: 1)));
+        }
         Get.back();
       },
     );
@@ -122,6 +129,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         //       params: PaginationParam(page: 1),
         //       profileId: sl<SharedPref>().account!.id));
         add(FetchProfileInfoEv(
+            context: event.context,
             profileId: event.otherUserId,
             params: PaginationParam(page: 1),
             emitLoading: false));

@@ -9,6 +9,7 @@ import 'package:frontend_trend/core/widgets/logo_loader.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom_release_unzoom/pinch_zoom_release_unzoom.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../core/resources/color_manager.dart';
 import '../../../data/models/post_model.dart';
 import '../../bloc/posts_bloc/posts_bloc.dart';
@@ -120,10 +121,16 @@ class _PostMediaWidgetState extends State<PostMediaWidget>
               child: CachedNetworkImage(
                 imageUrl: widget.post.image,
                 placeholder: (context, x) {
-                  return Center(
-                      child: LogoLoader(
-                    size: 200.sp,
-                  ));
+                  return Shimmer.fromColors(
+                    baseColor: Theme.of(context).highlightColor,
+                    highlightColor: Theme.of(context).dividerColor,
+                    child: Container(
+                      width: double.infinity,
+                      height:
+                          height > Get.height * 0.7 ? Get.height * 0.7 : null,
+                      color: Colors.white,
+                    ),
+                  );
                 },
                 errorWidget: (context, url, error) {
                   return Container(

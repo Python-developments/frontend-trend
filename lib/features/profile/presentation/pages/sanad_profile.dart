@@ -62,6 +62,7 @@ class _SanadProfileState extends State<SanadProfile> {
 
   void _fetchProfileInfo() {
     context.read<ProfileBloc>().add(FetchProfileInfoEv(
+          context: context,
           profileId: widget.profileId,
           params: PaginationParam(page: 1),
         ));

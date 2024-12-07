@@ -101,7 +101,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           "${EndPoints.unFollowUser}$otherUserId/",
           formDataIsEnabled: true);
 
-      if (response.statusCode == 204) {
+      if (response.statusCode < 300) {
         return false;
       } else {
         throw const ServerException();
