@@ -446,6 +446,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  flutter_list_view:
+    dependency: "direct main"
+    description:
+      name: flutter_list_view
+      sha256: d99dc310bb3ca9d688dae1585b38a3f56e7b06eeb085ae27a5e0f56cf52172c5
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.28"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
