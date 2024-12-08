@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: "none"
 
-version: 0.3.0+1
+version: 0.3.0+2
 
 environment:
   sdk: ">=3.2.2 <4.0.0"
@@ -72,6 +72,7 @@ dependencies:
   pinch_zoom_release_unzoom: ^1.0.3
   readmore: ^3.0.0
   flutter_list_view: ^1.1.28
+  image_cropper: ^8.0.2
 
 dev_dependencies:
   # flutter_lints: ^2.0.0

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:frontend_trend/config/locale/app_localizations.dart';
 import 'package:frontend_trend/config/routes/app_routes.dart';
@@ -59,8 +60,7 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
 
     if (pickedFile != null) {
       // Do something with the picked file
-
-      file = File(pickedFile.path);
+      file = await cropImage(pickedFile);
       final img.Image image = img.decodeImage(await pickedFile.readAsBytes())!;
       imageHeight = image.height.toDouble();
       imageWidth = image.width.toDouble();
@@ -72,6 +72,37 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
     } else {
       print('No image selected.');
     }
+  }
+
+  Future<File> cropImage(XFile pickedFile) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile.path,
+      compressFormat: ImageCompressFormat.jpg,
+      compressQuality: 100,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          lockAspectRatio: false,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio4x3,
+          ],
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+          aspectRatioPresets: [
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio4x3,
+          ],
+        ),
+      ],
+    );
+    if (croppedFile != null) {
+      return File(croppedFile.path);
+    }
+    return File(pickedFile.path);
   }
 
   TextEditingController _descriptionController = TextEditingController();
