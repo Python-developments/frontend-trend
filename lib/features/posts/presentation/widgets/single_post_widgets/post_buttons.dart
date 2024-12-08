@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend_trend/features/posts/presentation/bloc/comments_bloc/comments_bloc.dart';
 import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/posts_bloc.dart';
 import 'package:frontend_trend/features/posts/presentation/bloc/posts_bloc/profile_posts_bloc.dart';
 import 'package:frontend_trend/features/posts/presentation/bloc/utils/share_post.dart';
+import 'package:frontend_trend/features/posts/presentation/widgets/single_post_widgets/comments/sanad_bottomsheet.dart';
 import 'package:frontend_trend/features/profile/presentation/bloc/current_user_cubit/current_user_cubit.dart';
+import 'package:frontend_trend/injection_container.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../data/models/post_model.dart';
@@ -99,7 +104,25 @@ class _PostButtonsState extends State<PostButtons> {
                 flex: 2,
                 child: GestureDetector(
                     onTap: () {
-                      showCommentsModal(context, widget.post);
+                      Get.bottomSheet(
+                          backgroundColor: Colors.white,
+                          BlocProvider(
+                              create: (BuildContext context) {
+                                return sl<CommentsBloc>();
+                              },
+                              child: SanadCommentsSheet(widget.post,
+                                  context.read<CurrentUserCubit>().state.user)),
+                          isScrollControlled: true);
+                      // showBottomSheet(
+                      //     elevation: 10,
+                      //     context: context,
+                      //     backgroundColor: Colors.white,
+                      //     builder: (c) => BlocProvider(
+                      //         create: (BuildContext context) {
+                      //           return sl<CommentsBloc>();
+                      //         },
+                      //         child: SanadCommentsSheet(widget.post)));
+                      // showCommentsModal(context, widget.post);
                     },
                     child: Container(
                       child: Row(
