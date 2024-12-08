@@ -122,8 +122,7 @@ class _SignupPageState extends State<RegisterPage> {
                             isPassword: false,
                             controller: _lnameController,
                             validator: (value) =>
-                                Validation.validateMandatoryField(
-                                    value, context),
+                                Validation.optionalValidation(value, context),
                           ),
                           SizedBox(height: 10.h),
                           CustomTextfield(

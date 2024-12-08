@@ -102,13 +102,16 @@ class _SanadProfileState extends State<SanadProfile> {
                         size: 90.h, imageUrl: state.profile?.avatar ?? ''),
                   ),
                   SizedBox(height: 10.h),
-                  Text(
-                    '${state.profile?.fName} ${state.profile?.lName}',
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  ((state.profile?.fName.isEmpty ?? true) &&
+                          (state.profile?.lName.isEmpty ?? true))
+                      ? SizedBox.shrink()
+                      : Text(
+                          '${state.profile?.fName} ${state.profile?.lName}',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                   SizedBox(height: 5.h),
                   Text(
                     '@${state.profile?.username}',
