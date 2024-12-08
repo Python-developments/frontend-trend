@@ -37,6 +37,8 @@ class _SignupPageState extends State<RegisterPage> {
             username: _usernameController.text.trim(),
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
+            fName: _fnameController.text.trim(),
+            lName: _lnameController.text.trim(),
           )));
     }
   }
@@ -112,8 +114,7 @@ class _SignupPageState extends State<RegisterPage> {
                             isPassword: false,
                             controller: _fnameController,
                             validator: (value) =>
-                                Validation.validateMandatoryField(
-                                    value, context),
+                                Validation.optionalValidation(value, context),
                           ),
                           SizedBox(height: 10.h),
                           CustomTextfield(

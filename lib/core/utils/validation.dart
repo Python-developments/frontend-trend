@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import '../../config/locale/app_localizations.dart';
 
 class Validation {
+  static String? optionalValidation(String? password, BuildContext context) {
+    return null;
+  }
+
   static String? validatePassword(String? password, BuildContext context) {
     if (password == null || password.trim().toString().length < 8) {
       return "Password must be 8 character at least".hardcoded;

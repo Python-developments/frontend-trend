@@ -106,6 +106,8 @@ class _PostButtonsState extends State<PostButtons> {
                     onTap: () {
                       Get.bottomSheet(
                           backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.sp)),
                           BlocProvider(
                               create: (BuildContext context) {
                                 return sl<CommentsBloc>();

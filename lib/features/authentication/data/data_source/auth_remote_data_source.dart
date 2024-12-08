@@ -52,6 +52,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       "email": formData.email,
       "password": formData.password,
       "password2": formData.password,
+      "first_name": formData.fName,
+      "last_name": formData.lName,
       "avatar_key": "a"
     });
     if (response.statusCode == 201) {

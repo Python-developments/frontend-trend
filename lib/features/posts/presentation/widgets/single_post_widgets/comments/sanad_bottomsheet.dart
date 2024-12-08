@@ -76,6 +76,21 @@ class _SanadCommentsSheetState extends State<SanadCommentsSheet> {
         params: _paginationParams..page = 1, postId: widget.post.id));
   }
 
+  String getTimeAgoShort(DateTime createdAt) {
+    final currentTime = DateTime.now();
+    final difference = currentTime.difference(createdAt);
+
+    if (difference.inDays > 0) {
+      return '${difference.inDays}d'; // e.g. "1 d"
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours}h'; // e.g. "5 h"
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes}m'; // e.g. "10 m"
+    } else {
+      return '${difference.inSeconds}s'; // e.g. "30 s"
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -172,6 +187,13 @@ class _SanadCommentsSheetState extends State<SanadCommentsSheet> {
                                   ],
                                 ),
                               ),
+                              Text(
+                                getTimeAgoShort(comment.createdAt),
+                                style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: Colors.black45,
+                                ),
+                              )
                             ],
                           ),
                         );
