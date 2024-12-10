@@ -118,7 +118,7 @@ class _UserImageAndUsernameAndMenuState
                         fontFamily: isArabicPost ? "sfarabic" : "Inter",
                       ),
                       trimMode: TrimMode.Line,
-                      delimiter: "...",
+                      delimiter: " ...",
                       delimiterStyle: TextStyle(color: Colors.grey),
                       trimLines: 2,
                       textAlign:
@@ -133,6 +133,8 @@ class _UserImageAndUsernameAndMenuState
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey),
+                      textDirection:
+                          isArabicPost ? TextDirection.rtl : TextDirection.ltr,
                     ),
                   ],
                 ),

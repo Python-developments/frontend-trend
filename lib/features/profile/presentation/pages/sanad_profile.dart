@@ -113,14 +113,14 @@ class _SanadProfileState extends State<SanadProfile> {
                           ),
                         ),
                   SizedBox(height: 5.h),
-                  Text(
-                    '@${state.profile?.username}',
-                    style: TextStyle(
-                      fontSize: 11.sp,
-                      color: const Color.fromARGB(255, 141, 141, 141),
-                    ),
-                  ),
-                  SizedBox(height: 7.h),
+                  // Text(
+                  //   '@${state.profile?.username}',
+                  //   style: TextStyle(
+                  //     fontSize: 11.sp,
+                  //     color: const Color.fromARGB(255, 141, 141, 141),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 7.h),
                   Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 25.w),
