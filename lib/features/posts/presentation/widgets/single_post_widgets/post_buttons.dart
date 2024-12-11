@@ -105,9 +105,11 @@ class _PostButtonsState extends State<PostButtons> {
                 child: GestureDetector(
                     onTap: () {
                       Get.bottomSheet(
+                          ignoreSafeArea: false,
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.sp)),
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(15.sp))),
                           BlocProvider(
                               create: (BuildContext context) {
                                 return sl<CommentsBloc>();

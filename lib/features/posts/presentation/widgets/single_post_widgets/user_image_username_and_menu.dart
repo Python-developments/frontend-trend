@@ -118,13 +118,13 @@ class _UserImageAndUsernameAndMenuState
                         fontFamily: isArabicPost ? "sfarabic" : "Inter",
                       ),
                       trimMode: TrimMode.Line,
-                      delimiter: " ...",
+                      delimiter: " ... ",
                       delimiterStyle: TextStyle(color: Colors.grey),
                       trimLines: 2,
                       textAlign:
                           isArabicPost ? TextAlign.right : TextAlign.left,
-                      trimCollapsedText: ' more',
-                      trimExpandedText: ' less',
+                      trimCollapsedText: isArabicPost ? 'المزيد' : ' more',
+                      trimExpandedText: isArabicPost ? ' أقل' : ' less',
                       lessStyle: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

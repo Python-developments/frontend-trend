@@ -204,12 +204,12 @@ class _SanadCommentsSheetState extends State<SanadCommentsSheet> {
             // Thin grey line above text field
             Divider(
               color: Colors.grey,
-              thickness: 0.1,
+              thickness: 0.3,
               height: 1,
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: 16.w, right: 16.w, bottom: 16.h, top: 8.h),
+                  left: 16.w, right: 16.w, bottom: 10.h, top: 5.h),
               child: Row(
                 children: [
                   // Avatar on the left of input field
@@ -224,14 +224,15 @@ class _SanadCommentsSheetState extends State<SanadCommentsSheet> {
                           '');
                     },
                     child: CustomCachedImageWidget(
-                        size: 30.h, imageUrl: widget.user?.avatar ?? ''),
+                        size: 25.h, imageUrl: widget.user?.avatar ?? ''),
                   ),
                   SizedBox(width: 10.w),
 
                   // Input field
                   Expanded(
                     child: Container(
-                      height: 35.h, // Reduce height to make the input compact
+                      alignment: Alignment.center,
+                      height: 28.h, // Reduce height to make the input compact
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50.0),
                         border: Border.all(
@@ -254,6 +255,7 @@ class _SanadCommentsSheetState extends State<SanadCommentsSheet> {
                                     .trim(),
                               )));
                         },
+                        textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
                           hintText: "comment...",
                           hintStyle: TextStyle(
@@ -261,11 +263,11 @@ class _SanadCommentsSheetState extends State<SanadCommentsSheet> {
                             color: Colors.grey[400],
                           ),
                           border: InputBorder.none, // Remove default borders
+                          isDense: true,
                           contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.h, // Reduce vertical padding
-                            horizontal:
-                                16.w, // Add consistent horizontal padding
-                          ),
+                            vertical: 10,
+                            horizontal: 15.w,
+                          ), // Adjust padding
                         ),
                         style: TextStyle(
                           fontSize:
