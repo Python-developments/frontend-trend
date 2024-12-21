@@ -116,7 +116,6 @@ class _PostMediaWidgetState extends State<PostMediaWidget>
               widget.function(false);
             },
             child: Container(
-              height: height > Get.height * 0.7 ? Get.height * 0.7 : null,
               alignment: Alignment.center,
               child: CachedNetworkImage(
                 imageUrl: widget.post.image,
